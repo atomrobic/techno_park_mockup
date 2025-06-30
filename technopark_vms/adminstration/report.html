@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@heroicons/vue@2.0.18/24/solid/index.umd.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-md">
+    <div class="p-4 border-b text-xl font-bold text-blue-600">Admin Panel</div>
+    <nav class="p-4 space-y-2 text-gray-700">
+      <a href="dashboard.html" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-200">
+        <i data-feather="home" class="w-4 h-4"></i> Dashboard
+      </a>
+      <a href="#" class="flex items-center gap-2 px-3 py-2 bg-blue-100 text-blue-700 rounded">
+        <i data-feather="bar-chart-2" class="w-4 h-4"></i> Reports
+      </a>
+      <a href="settings.html" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-200">
+        <i data-feather="settings" class="w-4 h-4"></i> Settings
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-auto">
+    <h1 class="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+      <i data-feather="file-text" class="w-6 h-6 text-blue-600"></i> Reports
+    </h1>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button class="tab-btn px-4 py-2 bg-blue-600 text-white rounded flex items-center gap-2" data-tab="consolidated">
+        <i data-feather="list" class="w-4 h-4"></i> Consolidate
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="vip">
+        <i data-feather="star" class="w-4 h-4"></i> VIP Pass
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="walkin">
+        <i data-feather="user-plus" class="w-4 h-4"></i> Walk-in
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="company">
+        <i data-feather="briefcase" class="w-4 h-4"></i> Company Visitors
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="visitor">
+        <i data-feather="users" class="w-4 h-4"></i> Visitors
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="count">
+        <i data-feather="bar-chart" class="w-4 h-4"></i> Count
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="otv">
+        <i data-feather="monitor" class="w-4 h-4"></i> OTV
+      </button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded flex items-center gap-2" data-tab="instant">
+        <i data-feather="zap" class="w-4 h-4"></i> Instant Pass
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white p-2 rounded shadow mb-2">
+      <h2 class="text-lg font-semibold mb-4">Filters</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+        <div>
+          <label class="block mb-1 text-sm text-gray-700">Date From</label>
+          <input type="date" value="2025-03-07" class="w-full border px-3 py-2 rounded" />
+        </div>
+        <div>
+          <label class="block mb-1 text-sm text-gray-700">Date To</label>
+          <input type="date" value="2025-04-07" class="w-full border px-3 py-2 rounded" />
+        </div>
+        <div class="flex items-center gap-2 mt-6 md:mt-0">
+          <input type="checkbox" id="locationFilter" class="accent-blue-600" />
+          <label for="locationFilter" class="text-gray-700">All Locations</label>
+        </div>
+        <div class="flex gap-2 mt-6 md:mt-0">
+          <button class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            <i data-feather="search" class="w-4 h-4"></i> Search
+          </button>
+          <button class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <i data-feather="download" class="w-4 h-4"></i> Export
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-4">Report Data</h2>
+      <div class="overflow-auto">
+        <table class="min-w-full text-sm text-left text-gray-700 border">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-4 py-2 border">Date</th>
+              <th class="px-4 py-2 border">Visitor Name</th>
+              <th class="px-4 py-2 border">Mobile</th>
+              <th class="px-4 py-2 border">Company</th>
+              <th class="px-4 py-2 border">Location</th>
+              <th class="px-4 py-2 border">Building</th>
+              <th class="px-4 py-2 border">Purpose</th>
+              <th class="px-4 py-2 border">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tbody>
+  <tr class="hover:bg-gray-50">
+    <td class="px-4 py-2 border">2025-03-10</td>
+    <td class="px-4 py-2 border">Akhil Mohan</td>
+    <td class="px-4 py-2 border">9876543210</td>
+    <td class="px-4 py-2 border">TechCorp</td>
+    <td class="px-4 py-2 border">Kochi</td>
+    <td class="px-4 py-2 border">Block A</td>
+    <td class="px-4 py-2 border">Meeting</td>
+    <td class="px-4 py-2 border">2 hours</td>
+  </tr>
+  <tr class="hover:bg-gray-50">
+    <td class="px-4 py-2 border">2025-03-12</td>
+    <td class="px-4 py-2 border">Shan Ali</td>
+    <td class="px-4 py-2 border">9123456789</td>
+    <td class="px-4 py-2 border">BizWorld</td>
+    <td class="px-4 py-2 border">Bangalore</td>
+    <td class="px-4 py-2 border">Block B</td>
+    <td class="px-4 py-2 border">Interview</td>
+    <td class="px-4 py-2 border">1 hour</td>
+  </tr>
+  <tr class="hover:bg-gray-50">
+    <td class="px-4 py-2 border">2025-03-15</td>
+    <td class="px-4 py-2 border">Nila Joseph</td>
+    <td class="px-4 py-2 border">9001234567</td>
+    <td class="px-4 py-2 border">SoftHub</td>
+    <td class="px-4 py-2 border">Chennai</td>
+    <td class="px-4 py-2 border">Tower 3</td>
+    <td class="px-4 py-2 border">Demo</td>
+    <td class="px-4 py-2 border">3 hours</td>
+  </tr>
+  <tr class="hover:bg-gray-50">
+    <td class="px-4 py-2 border">2025-03-18</td>
+    <td class="px-4 py-2 border">Rahul Dev</td>
+    <td class="px-4 py-2 border">9812345678</td>
+    <td class="px-4 py-2 border">InnoTech</td>
+    <td class="px-4 py-2 border">Delhi</td>
+    <td class="px-4 py-2 border">Main Wing</td>
+    <td class="px-4 py-2 border">Vendor Visit</td>
+    <td class="px-4 py-2 border">45 min</td>
+  </tr>
+  <tr class="hover:bg-gray-50">
+    <td class="px-4 py-2 border">2025-03-22</td>
+    <td class="px-4 py-2 border">Divya Nair</td>
+    <td class="px-4 py-2 border">9898989898</td>
+    <td class="px-4 py-2 border">GreenTech</td>
+    <td class="px-4 py-2 border">Mumbai</td>
+    <td class="px-4 py-2 border">Annex</td>
+    <td class="px-4 py-2 border">Consultation</td>
+    <td class="px-4 py-2 border">30 min</td>
+  </tr>
+</tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  feather.replace(); // Load all feather icons
+
+  const tabs = document.querySelectorAll(".tab-btn");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("bg-blue-600", "text-white"));
+      tabs.forEach(t => t.classList.add("bg-gray-200", "text-gray-800"));
+      tab.classList.remove("bg-gray-200", "text-gray-800");
+      tab.classList.add("bg-blue-600", "text-white");
+    });
+  });
+</script>
+
+</body>
+</html>

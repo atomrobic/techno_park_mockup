@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechNova VMS | Visitor Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="sidebar-logo">
+        <i class="fas fa-laptop-code"></i>
+        <span>TechNova VMS</span>
+      </a>
+    </div>
+    
+    <div class="nav-menu">
+      <a href="#" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-user-clock"></i>
+        <span>Active Visitors</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-history"></i>
+        <span>Visitor History</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-building"></i>
+        <span>Companies</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-users"></i>
+        <span>Employees</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-file-alt"></i>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="user-info">
+        <div class="user-avatar">AD</div>
+        <div class="user-name">Admin User</div>
+      </div>
+      <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Welcome Section -->
+      <div class="welcome-section">
+        <h2 class="welcome-title">Welcome, John Doe</h2>
+        <p class="welcome-message">Manage your visitor passes and track your visit history.</p>
+        <div class="action-buttons">
+          <button class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            <span>Request New Pass</span>
+          </button>
+          <button class="btn btn-secondary">
+            <i class="fas fa-user-tie"></i>
+            <span>Walk-in Interview</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Visitor Passes Table -->
+      <div class="visitor-table-container">
+        <div class="table-header">
+          <h3 class="table-title">Your Visitor Passes</h3>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search passes...">
+          </div>
+        </div>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Date</th>
+              <th>Approval</th>
+              <th>Used</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ABC Technologies</td>
+              <td>Oct 15, 2023</td>
+              <td>Approved</td>
+              <td>Yes</td>
+              <td><span class="status-badge used">Used</span></td>
+              <td>
+                <button class="action-btn" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" title="Print">
+                  <i class="fas fa-print"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>XYZ Solutions</td>
+              <td>Oct 18, 2023</td>
+              <td>Approved</td>
+              <td>No</td>
+              <td><span class="status-badge approved">Active</span></td>
+              <td>
+                <button class="action-btn" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" title="Print">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="action-btn" title="Cancel">
+                  <i class="fas fa-times"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>Global Systems</td>
+              <td>Oct 20, 2023</td>
+              <td>Pending</td>
+              <td>No</td>
+              <td><span class="status-badge pending">Pending</span></td>
+              <td>
+                <button class="action-btn" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" title="Cancel">
+                  <i class="fas fa-times"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>Data Systems</td>
+              <td>Oct 22, 2023</td>
+              <td>Rejected</td>
+              <td>No</td>
+              <td><span class="status-badge rejected">Rejected</span></td>
+              <td>
+                <button class="action-btn" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" title="Reapply">
+                  <i class="fas fa-redo"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>Tech Innovations</td>
+              <td>Oct 25, 2023</td>
+              <td>Approved</td>
+              <td>No</td>
+              <td><span class="status-badge approved">Active</span></td>
+              <td>
+                <button class="action-btn" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" title="Print">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="action-btn" title="Cancel">
+                  <i class="fas fa-times"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <div class="page-item"><i class="fas fa-chevron-left"></i></div>
+          <div class="page-item active">1</div>
+          <div class="page-item">2</div>
+          <div class="page-item">3</div>
+          <div class="page-item"><i class="fas fa-chevron-right"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple script to handle logout button
+    document.querySelector('.logout-btn').addEventListener('click', function() {
+      if(confirm('Are you sure you want to logout?')) {
+        // Redirect to login page
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Script to handle search functionality
+    document.querySelector('.search-box input').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('tbody tr');
+      
+      rows.forEach(row => {
+        const company = row.querySelector('td:first-child').textContent.toLowerCase();
+        const date = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        
+        if(company.includes(searchTerm) || date.includes(searchTerm)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

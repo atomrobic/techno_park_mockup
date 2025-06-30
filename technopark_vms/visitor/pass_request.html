@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechNova VMS | Pass Requests</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md">
+      <div class="p-4 border-b">
+        <a href="#" class="flex items-center text-blue-600 font-bold text-xl">
+          <i class="fas fa-laptop-code mr-2"></i>
+          <span>TechNova VMS</span>
+        </a>
+      </div>
+      <nav class="p-4">
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg bg-blue-600 text-white">
+          <i class="fas fa-home mr-3"></i> <span>Dashboard</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-user-clock mr-3"></i> <span>Active Visitors</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-history mr-3"></i> <span>Visitor History</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-building mr-3"></i> <span>Companies</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-users mr-3"></i> <span>Employees</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-file-alt mr-3"></i> <span>Reports</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-cog mr-3"></i> <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <!-- Top Bar -->
+      <div class="bg-white shadow-sm p-4 flex justify-between items-center">
+        <div class="flex items-center">
+          <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3">AD</div>
+          <div class="font-medium">Admin User</div>
+        </div>
+        <button class="flex items-center text-gray-600 hover:text-gray-800">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+
+      <!-- Pass Request Content -->
+      <div class="p-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Pass Requests</h2>
+            <div class="relative">
+              <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+              <input type="text" placeholder="Search requests..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+          </div>
+
+          <!-- Filter Buttons -->
+          <div class="flex space-x-4 mb-6">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">All</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Pending</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Approved</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Rejected</button>
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white rounded-lg overflow-hidden">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Company</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Date</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Approval</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Used</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Status</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <!-- Example Row 1 -->
+                <tr class="hover:bg-gray-50">
+                  <td class="py-4 px-4">Tech Corp</td>
+                  <td class="py-4 px-4">2025-06-28</td>
+                  <td class="py-4 px-4">Approved</td>
+                  <td class="py-4 px-4">Yes</td>
+                  <td class="py-4 px-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Used</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex space-x-2">
+                      <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="View">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="p-2 text-gray-600 hover:bg-gray-50 rounded-lg" title="Print">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Example Row 2 -->
+                <tr class="hover:bg-gray-50">
+                  <td class="py-4 px-4">InnoTech</td>
+                  <td class="py-4 px-4">2025-06-30</td>
+                  <td class="py-4 px-4">Pending</td>
+                  <td class="py-4 px-4">No</td>
+                  <td class="py-4 px-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex space-x-2">
+                      <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="View">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Cancel">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Example Row 3 -->
+                <tr class="hover:bg-gray-50">
+                  <td class="py-4 px-4">GlobalTech</td>
+                  <td class="py-4 px-4">2025-06-27</td>
+                  <td class="py-4 px-4">Rejected</td>
+                  <td class="py-4 px-4">No</td>
+                  <td class="py-4 px-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">Rejected</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex space-x-2">
+                      <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="View">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="p-2 text-gray-600 hover:bg-gray-50 rounded-lg" title="Reapply">
+                        <i class="fas fa-redo"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="flex justify-between items-center mt-6">
+            <div class="text-sm text-gray-500">Showing 1 to 3 of 10 entries</div>
+            <div class="flex space-x-2">
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">Previous</button>
+              <button class="px-3 py-1 border rounded-lg bg-blue-600 text-white">1</button>
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">2</button>
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">3</button>
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

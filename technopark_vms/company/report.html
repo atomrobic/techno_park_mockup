@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eef2ff;
+            --secondary: #3f37c9;
+            --dark: #1e1e1e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fb;
+            color: var(--dark);
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-left: 10px;
+        }
+
+        .sidebar-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .menu-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .menu-item:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Topbar */
+        .topbar {
+            height: 70px;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification {
+            position: relative;
+            margin-right: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .page-title p {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .page-actions .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--gray);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-light);
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray);
+            cursor: pointer;
+            position: relative;
+            margin-right: 1rem;
+        }
+
+        .tab.active {
+            color: var(--primary);
+        }
+
+        .tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            background: var(--gray-light);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 0.875rem;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        .status-inactive {
+            background: rgba(248, 37, 133, 0.1);
+            color: var(--danger);
+        }
+
+        .status-pending {
+            background: rgba(248, 150, 30, 0.1);
+            color: var(--warning);
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--gray-light);
+            color: var(--dark);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .form-row {
+            display: flex;
+            margin: 0 -0.75rem;
+        }
+
+        .form-col {
+            flex: 1;
+            padding: 0 0.75rem;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-success {
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(248, 150, 30, 0.1);
+            color: var(--warning);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">V</div>
+                <h3>VisitorPass</h3>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-title">Main</div>
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <div class="menu-title">Management</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-building"></i>
+                    <span>Companies</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Guests</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-id-card"></i>
+                    <span>Passes</span>
+                </a>
+                
+                <div class="menu-title">Reports</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Visitor Reports</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Consolidated</span>
+                </a>
+                
+                <div class="menu-title">Settings</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>System Settings</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Locations</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-key"></i>
+                    <span>API Keys</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Topbar -->
+            <div class="topbar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-actions">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge">3</div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div>
+                            <div class="user-name">Admin User</div>
+                            <div class="user-role">Super Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-title">
+                        <h2>Visitor Management</h2>
+                        <p>Manage all visitor passes and check-ins</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Pass
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="card">
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+                            <div style="background: rgba(67, 97, 238, 0.05); padding: 1.5rem; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 40px; height: 40px; background: rgba(67, 97, 238, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; color: var(--primary);">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 0.875rem; color: var(--gray);">Total Visitors</div>
+                                        <div style="font-size: 1.25rem; font-weight: 600;">1,248</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--success);">
+                                    <i class="fas fa-arrow-up"></i> 12.5% from last week
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(76, 201, 240, 0.05); padding: 1.5rem; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 40px; height: 40px; background: rgba(76, 201, 240, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; color: var(--success);">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 0.875rem; color: var(--gray);">Active Today</div>
+                                        <div style="font-size: 1.25rem; font-weight: 600;">87</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--success);">
+                                    <i class="fas fa-arrow-up"></i> 5.2% from yesterday
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(248, 150, 30, 0.05); padding: 1.5rem; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 40px; height: 40px; background: rgba(248, 150, 30, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; color: var(--warning);">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 0.875rem; color: var(--gray);">Pending Approval</div>
+                                        <div style="font-size: 1.25rem; font-weight: 600;">14</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--danger);">
+                                    <i class="fas fa-arrow-down"></i> 2.1% from yesterday
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(248, 37, 133, 0.05); padding: 1.5rem; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 40px; height: 40px; background: rgba(248, 37, 133, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; color: var(--danger);">
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 0.875rem; color: var(--gray);">Rejected</div>
+                                        <div style="font-size: 1.25rem; font-weight: 600;">3</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--danger);">
+                                    <i class="fas fa-arrow-up"></i> 1 new today
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Visitors -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Recent Visitors</div>
+                        <div>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tabs">
+                            <div class="tab active">All Visitors</div>
+                            <div class="tab">Checked In</div>
+                            <div class="tab">Pending</div>
+                            <div class="tab">VIP</div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Visitor ID</th>
+                                        <th>Name</th>
+                                        <th>Company</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#VP-2023-001</td>
+                                        <td>John Smith</td>
+                                        <td>ABC Corporation</td>
+                                        <td>Today, 09:15 AM</td>
+                                        <td>-</td>
+                                        <td>Main Building</td>
+                                        <td><span class="status status-active">Active</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-eye"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-print"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#VP-2023-002</td>
+                                        <td>Sarah Johnson</td>
+                                        <td>XYZ Ltd</td>
+                                        <td>Today, 10:30 AM</td>
+                                        <td>Today, 12:45 PM</td>
+                                        <td>North Wing</td>
+                                        <td><span class="status status-inactive">Checked Out</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-eye"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-print"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#VP-2023-003</td>
+                                        <td>Michael Brown</td>
+                                        <td>Tech Solutions Inc</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>Main Building</td>
+                                        <td><span class="status status-pending">Pending Approval</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-eye"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-print"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#VP-2023-004</td>
+                                        <td>Emily Davis (VIP)</td>
+                                        <td>Global Enterprises</td>
+                                        <td>Today, 11:00 AM</td>
+                                        <td>-</td>
+                                        <td>Executive Suite</td>
+                                        <td><span class="status status-active">Active</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-eye"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-print"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#VP-2023-005</td>
+                                        <td>Robert Wilson</td>
+                                        <td>Innovate Co</td>
+                                        <td>Yesterday, 02:15 PM</td>
+                                        <td>Yesterday, 04:30 PM</td>
+                                        <td>South Wing</td>
+                                        <td><span class="status status-inactive">Checked Out</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-eye"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-print"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Park Management Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Park Management</div>
+                        <div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Park
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Park ID</th>
+                                        <th>Park Name</th>
+                                        <th>Location</th>
+                                        <th>Buildings</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PARK-001</td>
+                                        <td>Central Business Park</td>
+                                        <td>Downtown</td>
+                                        <td>5</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-edit"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-trash"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PARK-002</td>
+                                        <td>North Tech Park</td>
+                                        <td>Business District</td>
+                                        <td>3</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-edit"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-trash"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PARK-003</td>
+                                        <td>South Innovation Park</td>
+                                        <td>Suburb</td>
+                                        <td>2</td>
+                                        <td><span class="badge badge-warning">Under Maintenance</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <div class="action-btn">
+                                                    <i class="fas fa-edit"></i>
+                                                </div>
+                                                <div class="action-btn">
+                                                    <i class="fas fa-trash"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple script for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Menu item functionality
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

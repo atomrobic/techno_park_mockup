@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Users - Role Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-md">
+    <div class="p-4 border-b text-xl font-bold text-blue-600">Admin Panel</div>
+    <nav class="p-4 space-y-2 text-gray-700">
+      <a href="dashboard.html" class="block px-3 py-2 rounded hover:bg-gray-200">Dashboard</a>
+      <a href="#" class="block px-3 py-2 bg-blue-100 text-blue-700 rounded">Users</a>
+      <a href="settings.html" class="block px-3 py-2 rounded hover:bg-gray-200">Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-auto">
+    <h1 class="text-2xl font-bold mb-4 text-gray-800">Users</h1>
+
+    <!-- Tabs -->
+    <div class="flex gap-4 mb-6">
+      <button class="tab-btn px-4 py-2 bg-blue-600 text-white rounded" data-tab="roles">Role Management</button>
+      <button class="tab-btn px-4 py-2 bg-gray-200 text-gray-800 rounded" data-tab="users">User Management</button>
+    </div>
+
+    <!-- Role Management -->
+    <div id="roles" class="tab-content block bg-white p-4 rounded shadow">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Roles</h2>
+        <button onclick="openModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">+ Add Role</button>
+      </div>
+
+      <table class="w-full text-sm text-left text-gray-700 border">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 border">#</th>
+            <th class="px-4 py-2 border">Role Name</th>
+            <th class="px-4 py-2 border">Permissions</th>
+            <th class="px-4 py-2 border">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border">1</td>
+            <td class="px-4 py-2 border">Admin</td>
+            <td class="px-4 py-2 border">All Access</td>
+            <td class="px-4 py-2 border text-blue-600 cursor-pointer">Edit</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border">2</td>
+            <td class="px-4 py-2 border">Staff</td>
+            <td class="px-4 py-2 border">Read, Edit</td>
+            <td class="px-4 py-2 border text-blue-600 cursor-pointer">Edit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- User Management -->
+    <div id="users" class="tab-content hidden bg-white p-4 rounded shadow">
+      <h2 class="text-xl font-semibold mb-4">User List</h2>
+      <table class="w-full text-sm text-left text-gray-700 border">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 border">#</th>
+            <th class="px-4 py-2 border">Name</th>
+            <th class="px-4 py-2 border">Email</th>
+            <th class="px-4 py-2 border">Role</th>
+            <th class="px-4 py-2 border">Status</th>
+            <th class="px-4 py-2 border">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border">1</td>
+            <td class="px-4 py-2 border">Akhil Mohan</td>
+            <td class="px-4 py-2 border">akhil@example.com</td>
+            <td class="px-4 py-2 border">Admin</td>
+            <td class="px-4 py-2 border text-green-600">Active</td>
+            <td class="px-4 py-2 border text-blue-600 cursor-pointer">Edit</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border">2</td>
+            <td class="px-4 py-2 border">Shan Ali</td>
+            <td class="px-4 py-2 border">shan@example.com</td>
+            <td class="px-4 py-2 border">Staff</td>
+            <td class="px-4 py-2 border text-red-600">Inactive</td>
+            <td class="px-4 py-2 border text-blue-600 cursor-pointer">Edit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- Add Role Modal -->
+<div id="roleModal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg w-full max-w-md p-6 shadow-lg">
+    <h2 class="text-xl font-semibold mb-4">Add New Role</h2>
+    <form>
+      <label class="block text-sm mb-1">Role Name</label>
+      <input type="text" class="w-full border px-3 py-2 rounded mb-4" placeholder="Enter role name" />
+
+      <label class="block text-sm mb-1">Set Permissions</label>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <label><input type="checkbox" class="mr-1"> Read</label>
+        <label><input type="checkbox" class="mr-1"> Write</label>
+        <label><input type="checkbox" class="mr-1"> Edit</label>
+        <label><input type="checkbox" class="mr-1"> Delete</label>
+        <label><input type="checkbox" class="mr-1"> Export</label>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded">Cancel</button>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save Role</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Tabs
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('bg-blue-600', 'text-white'));
+      tabs.forEach(t => t.classList.add('bg-gray-200', 'text-gray-800'));
+      tab.classList.add('bg-blue-600', 'text-white');
+
+      contents.forEach(c => c.classList.add('hidden'));
+      document.getElementById(tab.dataset.tab).classList.remove('hidden');
+    });
+  });
+
+  // Modal
+  function openModal() {
+    document.getElementById('roleModal').classList.remove('hidden');
+  }
+  function closeModal() {
+    document.getElementById('roleModal').classList.add('hidden');
+  }
+</script>
+
+</body>
+</html>

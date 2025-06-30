@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechNova VMS | Walk-In Interviews</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md">
+      <div class="p-4 border-b">
+        <a href="#" class="flex items-center text-blue-600 font-bold text-xl">
+          <i class="fas fa-laptop-code mr-2"></i>
+          <span>TechNova VMS</span>
+        </a>
+      </div>
+      <nav class="p-4">
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg bg-blue-600 text-white">
+          <i class="fas fa-home mr-3"></i> <span>Dashboard</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-user-clock mr-3"></i> <span>Active Visitors</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-history mr-3"></i> <span>Visitor History</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-building mr-3"></i> <span>Companies</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-users mr-3"></i> <span>Employees</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-file-alt mr-3"></i> <span>Reports</span>
+        </a>
+        <a href="#" class="flex items-center p-2 mb-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-cog mr-3"></i> <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <!-- Top Bar -->
+      <div class="bg-white shadow-sm p-4 flex justify-between items-center">
+        <div class="flex items-center">
+          <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3">AD</div>
+          <div class="font-medium">Admin User</div>
+        </div>
+        <button class="flex items-center text-gray-600 hover:text-gray-800">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+
+      <!-- Walk-In Content -->
+      <div class="p-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Walk-In Interviews</h2>
+            <div class="relative">
+              <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+              <input type="text" placeholder="Search walk-ins..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white rounded-lg overflow-hidden">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Chart</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Date Published</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Start Date</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">End Date</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Company</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Position</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Applied</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Used</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <!-- Example Row -->
+                <tr class="hover:bg-gray-50">
+                  <td class="py-4 px-4">
+                    <i class="fas fa-chart-bar text-indigo-500"></i>
+                  </td>
+                  <td class="py-4 px-4">2025-06-25</td>
+                  <td class="py-4 px-4">2025-07-01</td>
+                  <td class="py-4 px-4">2025-07-03</td>
+                  <td class="py-4 px-4">TechNova</td>
+                  <td class="py-4 px-4">Frontend Developer</td>
+                  <td class="py-4 px-4">NO</td>
+                  <td class="py-4 px-4">YES</td>
+                  <td class="py-4 px-4">
+                    <div class="flex space-x-2">
+                        <button class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700" title="View">
+                            <i class="fas fa-eye"></i> View
+                          </button>
+                          <button class="apply-btn flex items-center gap-1 px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700" title="Apply">
+                            <i class="fas fa-check-circle"></i> Apply
+                          </button>
+                          
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Example Row 2 -->
+                <tr class="hover:bg-gray-50">
+                  <td class="py-4 px-4">
+                    <i class="fas fa-chart-bar text-indigo-500"></i>
+                  </td>
+                  <td class="py-4 px-4">2025-06-28</td>
+                  <td class="py-4 px-4">2025-07-05</td>
+                  <td class="py-4 px-4">2025-07-08</td>
+                  <td class="py-4 px-4">InnoTech</td>
+                  <td class="py-4 px-4">Backend Engineer</td>
+                  <td class="py-4 px-4">YES</td>
+                  <td class="py-4 px-4">NO</td>
+                  <td class="py-4 px-4">
+                    <div class="flex space-x-2">
+                        <div class="flex space-x-2">
+                            <button class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700" title="View">
+                              <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700" title="Apply">
+                              <i class="fas fa-check-circle"></i> Apply
+                            </button>
+                          </div>
+                          
+                      </div>
+                      
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  <!-- Apply Modal -->
+<div id="applyModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg">
+      <h2 class="text-xl font-bold mb-4 text-gray-800">Apply for Interview Pass</h2>
+      
+      <p class="text-gray-700 mb-6">
+        This is a demo application. By clicking "Apply", your request for an interview pass will be processed.
+      </p>
+  
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeModal()" class="px-4 py-2 text-sm bg-gray-200 rounded-lg hover:bg-gray-300">Cancel</button>
+        <button onclick="submitApplication()" class="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">Apply for pass</button>
+      </div>
+    </div>
+  </div>
+  
+  
+          <!-- Pagination -->
+          <div class="flex justify-between items-center mt-6">
+            <div class="text-sm text-gray-500">Showing 1 to 2 of 5 entries</div>
+            <div class="flex space-x-2">
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">Previous</button>
+              <button class="px-3 py-1 border rounded-lg bg-blue-600 text-white">1</button>
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">2</button>
+              <button class="px-3 py-1 border rounded-lg text-gray-600 hover:bg-gray-100">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const modal = document.getElementById('applyModal');
+  
+    function openModal() {
+      modal.classList.remove('hidden');
+    }
+  
+    function closeModal() {
+      modal.classList.add('hidden');
+    }
+  
+    document.querySelectorAll('.apply-btn').forEach(btn => {
+      btn.addEventListener('click', openModal);
+    });
+  
+    document.getElementById('applyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Application submitted!');
+      closeModal();
+    });
+  </script>
+  
+</body>
+
+</html>

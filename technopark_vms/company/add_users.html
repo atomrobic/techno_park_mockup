@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechNova VMS | Company Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md">
+      <div class="p-4 border-b">
+        <a href="#" class="flex items-center text-blue-600 font-bold text-xl">
+          <i class="fas fa-laptop-code mr-2"></i>
+          <span>TechNova VMS</span>
+        </a>
+      </div>
+      <nav class="p-4 space-y-2">
+        <a href="#" class="flex items-center p-2 rounded-lg bg-blue-600 text-white">
+          <i class="fas fa-home mr-3"></i> <span>Dashboard</span>
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-id-badge mr-3"></i> <span>Issued Pass</span>
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-check-circle mr-3"></i> <span>Approve Pass</span>
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-user-friends mr-3"></i> <span>My Visitors</span>
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-user-cog mr-3"></i> <span>Manage Users</span>
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg text-gray-600 hover:bg-gray-100">
+          <i class="fas fa-id-card mr-3"></i> <span>My Profile PDF</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <!-- Top Bar -->
+      <div class="bg-white shadow-sm p-4 flex justify-between items-center">
+        <div class="flex items-center">
+          <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3">AD</div>
+          <div class="font-medium">Admin User</div>
+        </div>
+        <button class="flex items-center text-gray-600 hover:text-gray-800">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+
+      <!-- Page Content -->
+      <div class="p-6 space-y-10">
+
+      
+        <!-- User Details Module -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-gray-800">User Details</h2>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              <i class="fas fa-user-plus mr-2"></i>Add User
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-left border border-gray-200">
+              <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                  <th class="px-4 py-2 border-b">Name</th>
+                  <th class="px-4 py-2 border-b">Mobile</th>
+                  <th class="px-4 py-2 border-b">Action</th>
+                </tr>
+              </thead>
+              <tbody id="userTableBody">
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-4 py-2">John Doe</td>
+                  <td class="px-4 py-2">9876543210</td>
+                  <td class="px-4 py-2 space-x-2">
+                    <button class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"><i class="fas fa-edit mr-1"></i>Edit</button>
+                    <button class="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600"><i class="fas fa-check mr-1"></i>Activate</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Change Password Modal -->
+        <div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+          <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-bold mb-4">Change Password</h2>
+            <form id="passwordForm" class="space-y-4">
+              <div>
+                <label class="block text-gray-700 mb-1">Email</label>
+                <input type="email" id="modalEmail" readonly class="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-700" />
+              </div>
+              <div>
+                <label class="block text-gray-700 mb-1">New Password</label>
+                <input type="password" class="w-full px-4 py-2 border rounded-lg" required>
+              </div>
+              <div>
+                <label class="block text-gray-700 mb-1">Confirm Password</label>
+                <input type="password" class="w-full px-4 py-2 border rounded-lg" required>
+              </div>
+              <div class="flex justify-end gap-2 pt-4">
+                <button type="button" id="cancelModal" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Change</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const form = document.getElementById("companyForm");
+    const output = document.getElementById("output");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      document.getElementById("outCompanyName").textContent = form.companyName.value;
+      document.getElementById("outDestination").textContent = form.destination.value;
+      document.getElementById("outOrganization").textContent = form.organization.value;
+      document.getElementById("outAddress").textContent = form.address.value;
+      document.getElementById("outExtNumber").textContent = form.extNumber.value;
+      document.getElementById("outMobile").textContent = form.mobile.value;
+      document.getElementById("outEmail").textContent = form.email.value;
+      document.getElementById("outPark").textContent = form.park.value;
+      document.getElementById("outBuilding").textContent = form.building.value;
+
+      form.classList.add("hidden");
+      output.classList.remove("hidden");
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit Profile";
+      editBtn.className = "mt-6 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700";
+      output.appendChild(editBtn);
+
+      editBtn.addEventListener("click", () => {
+        form.classList.remove("hidden");
+        output.classList.add("hidden");
+        editBtn.remove();
+      });
+    });
+
+    // Modal
+    const modal = document.getElementById("passwordModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const cancelModalBtn = document.getElementById("cancelModal");
+    const emailInput = document.getElementById("emailInput");
+    const modalEmail = document.getElementById("modalEmail");
+
+    openModalBtn.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      modalEmail.value = emailInput.value || "admin@example.com";
+    });
+
+    cancelModalBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+
+    document.getElementById("passwordForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Password changed successfully for: " + modalEmail.value);
+      modal.classList.add("hidden");
+    });
+  </script>
+</body>
+</html>

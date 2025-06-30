@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova VMS | Visitor Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            padding-top: 80px;
+        }
+        
+        /* Navbar Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        /* Left Side - Info Panel */
+        .info-panel {
+            width: 40%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .info-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .info-panel h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .info-panel h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+        
+        .info-panel p {
+            margin-bottom: 25px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.85);
+        }
+        
+        .pdf-download {
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .pdf-download:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .pdf-download i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        /* Right Side - OTP Login */
+        .auth-container {
+            width: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+        .auth-box {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .auth-tabs {
+            display: none;
+        }
+        
+        .auth-content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .otp-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .otp-group input {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            padding: 12px;
+        }
+        
+        .btn-auth {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-auth-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-auth-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-otp {
+            background-color: #e2e8f0;
+            color: var(--dark);
+            margin-top: 10px;
+        }
+        
+        .btn-otp:hover {
+            background-color: #cbd5e1;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .divider::before {
+            margin-right: 10px;
+        }
+        
+        .divider::after {
+            margin-left: 10px;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+            background-color: white;
+        }
+        
+        .social-btn:hover {
+            background-color: #f8fafc;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .info-panel, .auth-container {
+                width: 100%;
+            }
+            
+            .info-panel {
+                padding: 40px 20px;
+                text-align: center;
+            }
+            
+            .info-content {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+        
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navbar at the top -->
+    <header>
+        <div class="container">
+          <nav class="navbar">
+            <a href="#" class="logo">
+              <i class="fas fa-laptop-code"></i>
+              <span>TechNova</span>
+            </a>
+            <div class="nav-links">
+              <a href="#solutions">Solutions</a>
+              <a href="#vms">VMS</a>
+              <a href="#industries">Industries</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-buttons">
+              <a href="#login" class="btn btn-outline">Client Login</a>
+              <a href="#" class="btn btn-primary">Get Demo</a>
+            </div>
+            <button class="mobile-menu-btn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Left Side - Information Panel -->
+        <div class="info-panel">
+            <div class="info-content">
+                <h1>Visitor Management System</h1>
+                <h2>TechNova Solutions for Techno Park</h2>
+                
+                <p>Our advanced Visitor Management System streamlines the check-in process for all visitors to Techno Park, enhancing security while providing a seamless experience.</p>
+                
+                <p>Key features include mobile registration, digital check-in, instant badge printing, and real-time host notifications.</p>
+                
+                <p>The system integrates with Techno Park's existing security infrastructure to maintain the highest safety standards while reducing administrative workload.</p>
+                
+                <a href="technopark_vms_guide.pdf" class="pdf-download" download>
+                    <i class="fas fa-file-pdf"></i>
+                    Download Techno Park VMS Guide
+                </a>
+            </div>
+        </div>
+        
+        <!-- Right Side - OTP Login -->
+        <div class="auth-container">
+            <div class="auth-box">
+                <!-- Mobile Number Form -->
+                <div class="auth-content" id="mobileForm">
+                    <h2 style="margin-bottom: 20px;">Login with Mobile</h2>
+                    <form id="mobileLoginForm">
+                        <div class="form-group">
+                            <label for="loginMobile">Mobile Number</label>
+                            <input type="tel" id="loginMobile" placeholder="Enter your 10-digit mobile number" required pattern="[0-9]{10}" maxlength="10">
+                        </div>
+                        
+                        <button type="button" class="btn-auth btn-auth-primary" onclick="sendOTP()">Send OTP</button>
+                    </form>
+                </div>
+                
+                <!-- OTP Verification Form - Hidden Initially -->
+                <div class="auth-content" id="otpForm" style="display: none;">
+                    <h2 style="margin-bottom: 10px;">Verify OTP</h2>
+                    <p style="margin-bottom: 20px; color: var(--gray);">We've sent a 6-digit code to <span id="displayMobile"></span></p>
+                    
+                    <form id="otpVerificationForm">
+                        <div class="form-group">
+                            <label>Enter 6-digit OTP</label>
+                            <div class="otp-group">
+                                <input type="text" maxlength="1" pattern="[0-9]" oninput="focusNext(this, event)">
+                                <input type="text" maxlength="1" pattern="[0-9]" oninput="focusNext(this, event)">
+                                <input type="text" maxlength="1" pattern="[0-9]" oninput="focusNext(this, event)">
+                                <input type="text" maxlength="1" pattern="[0-9]" oninput="focusNext(this, event)">
+                                <input type="text" maxlength="1" pattern="[0-9]" oninput="focusNext(this, event)">
+                                <input type="text" maxlength="1" pattern="[0-9]" oninput="focusNext(this, event)">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-auth btn-auth-primary">Verify & Login</button>
+                        <button type="button" class="btn-otp" onclick="goBackToMobile()">← Back to Mobile Number</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Send OTP function
+        function sendOTP() {
+            const mobile = document.getElementById('loginMobile').value.trim();
+            
+            if (mobile.length === 10 && /^\d+$/.test(mobile)) {
+                // Display the mobile number in OTP form
+                document.getElementById('displayMobile').textContent = mobile;
+                
+                // Hide mobile form and show OTP form
+                document.getElementById('mobileForm').style.display = 'none';
+                document.getElementById('otpForm').style.display = 'block';
+                
+                // Focus on first OTP input
+                document.querySelector('.otp-group input').focus();
+                
+                // In a real app, you would send the OTP to the mobile number here
+                console.log('OTP sent to', mobile);
+            } else {
+                alert('Please enter a valid 10-digit mobile number');
+            }
+        }
+        
+        // Go back to mobile number form
+        function goBackToMobile() {
+            document.getElementById('otpForm').style.display = 'none';
+            document.getElementById('mobileForm').style.display = 'block';
+        }
+        
+        // Auto-focus next OTP input
+        function focusNext(current, event) {
+            if (current.value.length === 1) {
+                const next = current.nextElementSibling;
+                if (next) {
+                    next.focus();
+                }
+            }
+            
+            // Handle backspace
+            if (event.inputType === 'deleteContentBackward' && current.value.length === 0) {
+                const prev = current.previousElementSibling;
+                if (prev) {
+                    prev.focus();
+                }
+            }
+        }
+        
+        // Handle OTP form submission
+        document.getElementById('otpVerificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect OTP digits
+            const otpInputs = document.querySelectorAll('.otp-group input');
+            let otp = '';
+            otpInputs.forEach(input => {
+                otp += input.value;
+            });
+            
+            if (otp.length === 6) {
+                alert('Logging in with OTP: ' + otp);
+                // In a real app, you would verify the OTP with your backend here
+                // window.location.href = 'dashboard.html'; // Redirect on success
+            } else {
+                alert('Please enter the complete 6-digit OTP');
+            }
+        });
+        
+        // Mobile menu toggle functionality
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            const navButtons = document.querySelector('.nav-buttons');
+            
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+                navButtons.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navButtons.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.backgroundColor = 'white';
+                navLinks.style.padding = '20px';
+                navLinks.style.boxShadow = '0 10px 15px rgba(0,0,0,0.1)';
+                
+                navButtons.style.position = 'absolute';
+                navButtons.style.top = 'calc(100% + 180px)';
+                navButtons.style.left = '0';
+                navButtons.style.width = '100%';
+                navButtons.style.backgroundColor = 'white';
+                navButtons.style.padding = '20px';
+                navButtons.style.boxShadow = '0 10px 15px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
