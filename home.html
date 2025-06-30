@@ -156,7 +156,7 @@
         }
         
         .hero-image {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             border-radius: 10px;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -765,6 +765,19 @@
         @media (max-width: 768px) {
             .nav-links, .nav-buttons {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-buttons {
+                top: auto;
+                bottom: -180px;
             }
             
             .mobile-menu-btn {
@@ -787,7 +800,12 @@
             .section-title h2 {
                 font-size: 28px;
             }
+            
         }
+        .logo-image {
+    height: 30px; /* or whatever size fits your design */
+    width: auto;
+}
     </style>
 </head>
 <body>
@@ -795,11 +813,10 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo">
-                    <i class="fas fa-laptop-code"></i>
-                    <span>TechNova</span>
-                </a>
-                
+               <a href="#" class="logo">
+    <img src="https://technopark.in/tp-logo.png" alt="TechnoPark Logo" class="logo-image">
+    <span></span>
+</a>
                 <div class="nav-links">
                     <a href="#solutions">Solutions</a>
                     <a href="#vms">VMS</a>
@@ -809,8 +826,9 @@
                 </div>
                 
                 <div class="nav-buttons">
-                    <a href="#login" class="btn btn-outline">Client Login</a>
-                    <a href="#" class="btn btn-primary">Get Demo</a>
+                    <a href="http://127.0.0.1:5500/technopark_vms/company/dashboard.html" class="btn btn-outline">company Login</a>
+                    <a href="http://127.0.0.1:5500/technopark_vms/visitor/vms.html" class="btn btn-outline">vistor Login</a>
+                    <a href="vms.html" class="btn btn-primary">Get Demo</a>
                 </div>
                 
                 <button class="mobile-menu-btn">
@@ -823,7 +841,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Enterprise Software Solutions for the Digital Age</h1>
+            <h1>Work-Life Harmony Begins Here.</h1>
             <p>TechNova delivers cutting-edge software solutions that transform business operations, enhance security, and drive digital transformation.</p>
             
             <div class="hero-buttons">
@@ -832,7 +850,7 @@
             </div>
             
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Software Solutions Dashboard">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkClVtGPS_pAmMDgHMZOrj50RepSNE0BR8bw&s" alt="Software Solutions Dashboard">
             </div>
         </div>
     </section>
@@ -841,7 +859,7 @@
     <section class="solutions" id="solutions">
         <div class="container">
             <div class="section-title">
-                <h2>Our Software Solutions</h2>
+                <h2>Work-Life Harmony Begins Here.</h2>
                 <p>Comprehensive enterprise software designed to solve your business challenges</p>
             </div>
             
@@ -1345,6 +1363,7 @@
             // Reset navbar
             document.querySelector('.nav-buttons').innerHTML = `
                 <a href="#login" class="btn btn-outline">Client Login</a>
+                <a href="#login" class="btn btn-outline">VMS Login</a>
                 <a href="#" class="btn btn-primary">Get Demo</a>
             `;
             
@@ -1419,6 +1438,8 @@
             } else {
                 navLinks.style.display = 'flex';
                 navButtons.style.display = 'flex';
+                navButtons.style.flexDirection = 'column';
+                navButtons.style.gap = '10px';
             }
         });
     </script>
